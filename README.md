@@ -7,9 +7,14 @@ CAD → hit export → a robot you built draws it in ink.
 Built as a mechatronics internship portfolio piece. ~$160 CAD in parts;
 every structural component printed on a Bambu P1S.
 
-![SCARA Drafter concept render](docs/img/concept-render.png)
-*Concept mockup (OpenSCAD, real proportions): base with electronics tray, belt-driven
-shoulder, elbow motor riding link 1, pen carriage drawing on A5.*
+![Printable parts v1, assembled](docs/img/real-parts-assembly.png)
+*Printable parts v1 (OpenSCAD, [source](cad/scara-parts.scad)): base with shoulder tower
+and motor platform, 60T pulley-hubs, both links, pen carriage. Belt center distance is
+parametric pending measured belts (D9); tolerances pending the bearing coupon.*
+
+![60T pulley-hub](docs/img/hub-60t.png)
+*The heart of both joints: printed 60T GT2 pulley integrated with the bearing hub —
+one part, printed twice, flipped for the elbow.*
 
 ## The demo loop
 
