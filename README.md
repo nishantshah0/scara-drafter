@@ -1,44 +1,54 @@
-# Balance Bot — Self-Balancing Two-Wheel Robot
+# SCARA Drafter — a robot arm that draws CAD drawings
 
-An inverted-pendulum robot that stands on two wheels, rejects disturbances,
-and drives while balancing. Built for ~$100 CAD as a mechatronics portfolio
-piece. Successor to [slam-rover](https://github.com/nishantshah0/slam-rover)
-(design study) — reuses its firmware architecture, CAD workflow, and parts research.
+A 3D-printed SCARA robot arm that picks up a pen and drafts real CAD drawings
+(DXF files exported straight from Onshape) onto A5 paper. Design a part in
+CAD → hit export → a robot you built draws it in ink.
 
-## How it works (the 10-second version)
+Built as a mechatronics internship portfolio piece. ~$160 CAD in parts;
+every structural component printed on a Bambu P1S.
 
-It's a broomstick balanced on a fingertip, motorized. An IMU chip (MPU6050)
-senses which way the robot is tipping; a **PID controller** running on the
-Pico commands the wheels to drive *under* the fall, hundreds of times per
-second. Balance is never achieved — it's continuously re-won.
+## The demo loop
 
-## Hardware (~$100 CAD, staged)
+```
+Onshape sketch ──export──▶ DXF ──parse──▶ toolpath ──inverse kinematics──▶
+joint angles ──WiFi──▶ Pico W ──step pulses──▶ steppers ──belts──▶ pen on paper
+```
 
-| Item | ~CAD | Notes |
-|---|---|---|
-| Raspberry Pi Pico WH | $13 | WiFi = wireless teleop + live tuning |
-| 2× N20 gearmotors **with encoders**, 6V, ~300 RPM | $30 | Encoders enable station-keeping (stretch) |
-| SparkFun TB6612FNG (with headers) | $20 | No-solder motor driver |
-| MPU6050 (GY-521 board) | $10 | The inner ear. Buy a pre-soldered-header listing |
-| Jumper wires + mini breadboard | $15 | |
-| 6×AA holder w/ switch + alkalines | $12 | Battery rides HIGH — a taller center of mass falls slower (easier to balance) |
-| Printed frame, wheels, mounts | $0 | Bambu P1S |
+Every arrow in that pipeline is something I built and can explain.
+
+## Architecture
+
+- **Topology:** SCARA — two rigid printed links swinging in a horizontal
+  plane (gravity stays out of the drawing plane; precision comes cheaper),
+  plus a micro-servo pen lift. ~130 mm links → covers an A5 sheet.
+- **Actuation:** 2× NEMA17 steppers through printed GT2 belt reductions
+  (~3:1) — reduction multiplies resolution and torque, and belt tension is
+  the main precision tuning knob.
+- **Brains, split in two:** the PC does the thinking (DXF parsing, path
+  planning, IK — Python), the Pico W does the doing (real-time step pulse
+  generation, limits, fail-safe stop). Same distributed pattern as my
+  [slam-rover design study](https://github.com/nishantshah0/slam-rover).
+- **Calibration philosophy:** the arm draws a test square, I measure it with
+  calipers, software corrects the model — repeat until a 50 mm square is a
+  50 mm square. Measured, not assumed.
 
 ## Build phases
 
-- **Phase 0** — order parts; design the frame (tall 3-deck tower, printed);
-  set up repo & firmware skeleton
-- **Phase 1** — IMU bring-up: read raw gyro/accel, fuse into a clean tilt
-  angle (complementary filter), live-plot it over WiFi
-- **Phase 2** — motors + encoders on the bench (same drill as the rover plan)
-- **Phase 3** — **the balance loop**: PID from angle → wheel command; then the
-  great tuning journey (this is the project — every oscillation goes in the
-  debugging log)
-- **Phase 4 (stretch)** — drive-while-balancing via WiFi teleop; encoder-based
-  station-keeping (holds position, not just uprightness); push-recovery demo video
+| Phase | Weeks | Deliverable |
+|---|---|---|
+| 0 — Design & order | 0–1 | Parts ordered; base/links/carriage CAD'd; bearing-fit coupon printed |
+| 1 — Electronics bench | 1–2 | Both joints sweeping smoothly under command; pen lift working |
+| 2 — Assembly & IK | 2–3 | Arm moves pen to commanded (x, y); first drawn line |
+| 3 — Precision | 3–5 | **One clean 50 mm square** (the project's summit — tuning journey logged) |
+| 4 — DXF pipeline | 5–6 | Draws a real Onshape-exported drawing. The money demo |
+| 5 — Stretch | — | Handwriting mode; whiteboard tile; cycloidal gearbox joints v2 |
 
-## Lineage
+Full milestone ladders: [docs/roadmap.md](docs/roadmap.md) ·
+Parts: [docs/shopping-list.md](docs/shopping-list.md) ·
+Why-decisions: [docs/decisions.md](docs/decisions.md) ·
+Failure modes: [docs/risks.md](docs/risks.md) ·
+War stories: [docs/debugging-log.md](docs/debugging-log.md)
 
-Firmware patterns (fail-safe watchdog, PIO encoder counting, UDP command
-protocol, host-side simulation testing) proven in the
-[slam-rover design study](https://github.com/nishantshah0/slam-rover).
+## Status
+
+Phase 0 — design in progress (July 2026).
