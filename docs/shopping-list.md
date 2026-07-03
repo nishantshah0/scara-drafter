@@ -11,7 +11,8 @@ prices approximate.
 | Raspberry Pi Pico WH | pre-soldered headers, WiFi | $13 |
 | 12 V 3 A power supply | barrel jack + **screw-terminal adapter** included | $22 |
 | GT2 belt + pulleys kit | "GT2 6mm belt + 20T pulleys" kit — must include **2× closed-loop belts (200 mm / 2GT-200)** and **2× 20T pulleys, 5 mm bore** (grub screws + allen key usually included). The big 60T pulleys are NOT bought — they're printed (D9) | $18 |
-| Bearings | 608ZZ (8×22×7) ×4 + 625ZZ (5×16×5) ×4 — skate/printer bearings | $12 |
+| Bearings | **608ZZ (8×22×7) ×4** — skateboard bearings; both joints use the identical stack (one pattern, built twice) | $10 |
+| 2× M8×50 hex bolts + nyloc nuts | the joint axles the bearings ride on — Amazon assortment or any hardware store ($3) | $4 |
 | MG90S micro servo | metal gear, for the pen lift | $6 |
 | Jumper wires + breadboard | M-M and M-F dupont kit + half-size breadboard | $15 |
 | M3 screw + nut assortment | 8–20 mm lengths; arms genuinely need screws (zip ties flex) | $10 |
