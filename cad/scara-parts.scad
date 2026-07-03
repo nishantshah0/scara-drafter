@@ -27,6 +27,9 @@ TOWER_H    = 52;      // shoulder tower height (sets belt plane)
 NEMA       = 42.3;    // NEMA17 body + tol
 NEMA_HOLES = 31;      // NEMA17 mounting square
 NEMA_BOSS  = 22.6;    // NEMA17 pilot boss clearance
+PEN_D      = 11.0;    // MUJI gel knock-type 0.5 — MEASURE the barrel at its
+                      // widest gripped point and set this to measured + 0.4.
+                      // The flex slit takes up the slack; clip rides in the slit.
 
 // GT2 60T geometry
 function pitch_d(n) = 2*n/PI;
@@ -141,8 +144,8 @@ module carriage() {
             translate([0,4,0]) cube([26,26,40]);                 // pen block
         }
         for (y=[9,25]) translate([13,y,-1]) cylinder(d=M3, h=99); // to arm2
-        translate([13,17,-1]) cylinder(d=10.6, h=99);            // pen bore Ø10.5
-        translate([10.5,17,-1]) cube([5,20,99]);                 // flex-grip slit
+        translate([13,17,-1]) cylinder(d=PEN_D+0.4, h=99);       // pen bore (see PEN_D)
+        translate([13-2.5,17,-1]) cube([5,20,99]);               // flex-grip slit (also clears the clip)
         translate([-1,12,20]) cube([28,3.2,14]);                 // zip slots: servo
         translate([-1,24,20]) cube([28,3.2,14]);
     }
