@@ -7,6 +7,10 @@ CAD → hit export → a robot you built draws it in ink.
 Built as a mechatronics internship portfolio piece. ~$160 CAD in parts;
 every structural component printed on a Bambu P1S.
 
+![SCARA Drafter concept render](docs/img/concept-render.png)
+*Concept mockup (OpenSCAD, real proportions): base with electronics tray, belt-driven
+shoulder, elbow motor riding link 1, pen carriage drawing on A5.*
+
 ## The demo loop
 
 ```
