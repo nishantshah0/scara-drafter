@@ -42,6 +42,15 @@ project dies if it dies.
 50 mm SQUARE exists.** The milestone is placed just past the valley on
 purpose. Reread this paragraph in week 4.
 
+## R8 — Amp-level current through a breadboard 🟠
+
+Breadboard spring contacts are for signals; sustained ~1 A+ makes them heat,
+brown, and go intermittent (maddening to debug). Rule (D8): motor cables plug
+DIRECTLY onto the driver modules' motor pins; only logic signals and the
+capacitor-buffered 12 V feed touch the breadboard; driver current capped at
+~0.8 A RMS. Also: 100 µF capacitor sits right at each driver's 12 V pins —
+drivers can die from supply voltage spikes without it.
+
 ## R7 — Purchasing traps 🟡
 
 Unsoldered driver pins, pancake NEMA17s, PSU without screw adapter — see

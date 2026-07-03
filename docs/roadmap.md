@@ -15,15 +15,21 @@ is downhill and demos.
 
 - [ ] Order the [cart](shopping-list.md) (~$160, one order)
 - [ ] **Bearing coupon** (print first): pockets for the 608/625 bearings +
-      GT2 pulley bore + NEMA17 pilot — the tolerance test, same method as
-      last project's motor coupon
-- [ ] CAD session A: base (motor mounts, bearing seats, A5 board interface)
-- [ ] CAD session B: link 1 + link 2 (rigidity ribs — the anti-wobble design)
-- [ ] CAD session C: pen carriage (servo lift, pen clamp for ~10 mm pens)
-- [ ] Print base + links while parts ship
+      NEMA17 pilot boss + a printed GT2 tooth-profile sample — the tolerance
+      test, same method as last project's motor coupon
+- [ ] CAD session A: pen carriage (servo lift, pen clamp) — belt-independent,
+      safe to finalize pre-arrival
+- [ ] CAD session B: printed 60T GT2 pulleys (the big reduction wheels are
+      PRINTED, not bought) — verify tooth mesh against the coupon sample
+- [ ] **WAIT for the box, then measure:** exact belt lengths and pulleys in
+      hand set the joint center-distances → only THEN:
+- [ ] CAD session C: base + link 1 + link 2, dimensioned around the real
+      belts, with slotted motor mounts for tension adjustment
+- [ ] Print base + links
 
-**Done when:** parts in the mail, all structure printed.
-**Predicted fight:** bearing press-fits (that's what the coupon is for).
+**Done when:** parts arrived, all structure printed around measured parts.
+**Predicted fights:** bearing press-fits (the coupon's job) and belt-length
+arithmetic (design rule: the belt is bought truth, the CAD adapts to it).
 
 ## Phase 1 (Week 1–2) — Electronics bench
 

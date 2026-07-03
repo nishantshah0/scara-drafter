@@ -10,7 +10,7 @@ prices approximate.
 | 2× TMC2209 driver modules | "TMC2209" stepstick, **pins pre-soldered** (BIGTREETECH-style are; check photos). TMC = silent + easy current setting | $18 |
 | Raspberry Pi Pico WH | pre-soldered headers, WiFi | $13 |
 | 12 V 3 A power supply | barrel jack + **screw-terminal adapter** included | $22 |
-| GT2 belt + pulleys kit | "GT2 6mm belt + 20T pulleys" kit (printer spare kits are perfect); closed-loop belts 200 mm if listed | $18 |
+| GT2 belt + pulleys kit | "GT2 6mm belt + 20T pulleys" kit — must include **2× closed-loop belts (200 mm / 2GT-200)** and **2× 20T pulleys, 5 mm bore** (grub screws + allen key usually included). The big 60T pulleys are NOT bought — they're printed (D9) | $18 |
 | Bearings | 608ZZ (8×22×7) ×4 + 625ZZ (5×16×5) ×4 — skate/printer bearings | $12 |
 | MG90S micro servo | metal gear, for the pen lift | $6 |
 | Jumper wires + breadboard | M-M and M-F dupont kit + half-size breadboard | $15 |

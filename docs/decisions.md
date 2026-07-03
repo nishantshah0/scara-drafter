@@ -32,6 +32,27 @@ and generates precisely-timed step pulses (the hard-real-time part). This is
 the standard industrial pattern (planner ↔ motion controller), and it reuses
 the fail-safe watchdog + UDP protocol design from the slam-rover firmware.
 
+## D8 — Power architecture: 12 V for motors only; USB powers everything else
+
+This is a desk machine that's PC-connected by design (the PC is the planner),
+so the Pico + pen servo run off USB the whole project — no buck converter,
+no battery. The 12 V supply touches ONLY the driver motor rails. Two rules:
+12 V never routes near a Pico pin, and **motor coil current never flows
+through breadboard rails** — the motor's 4-pin cable plugs directly onto the
+driver's inline motor pins (breadboards handle signals fine but sag/heat at
+amp-level currents). Driver current set to ~0.8 A RMS: gentle on wiring,
+and the 3:1 reduction means torque margin stays ~3× anyway.
+
+## D9 — Belt-first design rule
+
+Closed-loop GT2 belts come in fixed lengths (e.g. 2GT-200 = 100 teeth); the
+20T motor pulleys are bought but the 60T joint pulleys are PRINTED. Center
+distance between motor and joint is therefore dictated by belt + pulley
+geometry — so link/base CAD is dimensioned AFTER the belts are in hand and
+measured. The purchased belt is ground truth; the CAD adapts to it, never
+the reverse. (Slotted motor mounts give ±3 mm of tension adjustment around
+the computed center distance.)
+
 ## D5 — Pen lift: micro servo, gravity-down
 
 MG90S rotates a cam that lifts the pen; pen weight + a light spring gives
