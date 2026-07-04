@@ -118,12 +118,13 @@ module base() {
             hull() for (x=[-80,55], y=[-55,55])                  // deck
                 translate([x,y,0]) cylinder(r=14, h=10);
             cylinder(d1=56, d2=44, h=TOWER_H);                   // shoulder tower
-            // motor platform: shelf at z=TOWER_H, motor hangs beneath, shaft up
+            // motor platform: shelf at z=TOWER_H-6, motor hangs beneath, shaft up
             translate([-CD,0,0]) {
-                for (y=[-27,21]) translate([-27,y,0]) cube([54,6,TOWER_H]);
+                for (y=[-28,22]) translate([-27,y,0]) cube([54,6,TOWER_H]);  // 44mm gap: NEMA fits
                 translate([-30,-30,TOWER_H-6]) cube([60,60,6]);
             }
         }
+        translate([-CD,0,0]) translate([-22,-22,-1]) cube([44,44,13]);  // deck cutout: motor body passes through
         cylinder(d=AXLE_D, h=99, center=true);                   // shoulder axle
         translate([0,0,-1]) cylinder(d=HEXAF/cos(30), h=7, $fn=6); // hex pocket ↓
         translate([-CD,0,0]) {
@@ -168,15 +169,42 @@ if (PART=="arm2") arm2();
 if (PART=="base") base();
 if (PART=="carriage") carriage();
 if (PART=="spacers") spacers();
+// bought-component mockups (assembly view only)
+module nema17_body() { color([0.22,0.24,0.28]) translate([-21,-21,0]) cube([42,42,42]); }
+module pulley20(z) { color("Silver") translate([0,0,z]) cylinder(d=14, h=8); }
+module belt(cd, z) { color("Firebrick") translate([0,0,z]) difference() {
+    hull() { cylinder(d=T60_OD+2, h=5); translate([cd,0,0]) cylinder(d=15, h=5); }
+    translate([0,0,-1]) hull() { cylinder(d=T60_OD-2, h=7); translate([cd,0,0]) cylinder(d=11, h=7); } } }
+
 if (PART=="assembly") {
     color("SteelBlue") base();
+    // motor 1: hangs under the base platform, shaft up through the shelf
+    translate([-CD,0,TOWER_H-6-42]) nema17_body();
+    translate([-CD,0,0]) { color("Silver") cylinder(d=5, h=TOWER_H+16); pulley20(TOWER_H+0.5); }
+    rotate([0,0,180]) belt(CD, TOWER_H+1.5);   // shoulder belt: hub -> motor1 at -CD
     translate([0,0,TOWER_H]) rotate([0,0,-14]) {
         color("LightSteelBlue") hub();
+        color("Silver") translate([0,0,PUL_H+HUB_BOSS_H+2]) cylinder(d=15,h=4,$fn=6);  // nyloc
         color("SteelBlue") translate([0,0,PUL_H+HUB_BOSS_H]) arm1();
+        // motor 2: body above arm1, face down, shaft down through the arm
+        translate([LINK-CD,0,PUL_H+HUB_BOSS_H+ARM_T]) nema17_body();
+        translate([LINK-CD,0,PUL_H+HUB_BOSS_H-14]) { color("Silver") cylinder(d=5,h=26); pulley20(2); }
         translate([LINK,0,PUL_H+HUB_BOSS_H]) rotate([0,0,52]) {
+            rotate([0,0,180-52]) translate([0,0,-9]) belt(CD, 0);  // elbow belt toward motor2
             color("LightSteelBlue") translate([0,0,-PUL_H-HUB_BOSS_H]) rotate([180,0,0]) hub();
             color("SteelBlue") translate([0,0,-PUL_H-HUB_BOSS_H-ARM_T-0.5]) arm2();
-            color("SlateGray") translate([LINK-13,-17,-PUL_H-HUB_BOSS_H-ARM_T-0.5]) carriage();
+            translate([LINK,0,-PUL_H-HUB_BOSS_H-ARM_T-0.5]) {
+                color("SlateGray") translate([-13,-17,0]) carriage();
+                color([0.2,0.4,0.65]) translate([-6,12,22]) cube([12,23,12]);      // MG90S
+                color([0.1,0.1,0.12]) translate([0,0,-28]) cylinder(d=10, h=52);   // MUJI pen
+            }
         }
     }
+    // paper + electronics beside the base (desk layout)
+    color("White") translate([60,-74,-8]) cube([210,148,1]);
+    color([0.9,0.9,0.87]) translate([-150,-40,-8]) cube([55,82,9]);   // breadboard
+    color([0.15,0.35,0.2]) translate([-144,-30,1]) cube([21,52,4]);   // Pico
+    color([0.5,0.1,0.12]) translate([-118,-24,1]) cube([13,18,4]);    // TMC2209 x2
+    color([0.5,0.1,0.12]) translate([-118,4,1]) cube([13,18,4]);
+    color([0.93,0.92,0.88]) translate([-150,-140,-8]) cube([460,300,0.5]); // desk
 }
