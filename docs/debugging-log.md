@@ -41,3 +41,14 @@ re-exported; part reprinted.
 **Lesson:** Every internal horizontal surface in CAD is a question: "what
 does the printer stand on here?" Flat ring ceilings over voids = automatic
 fail. Chamfer or step them at design time.
+
+**Round 2 (same day):** Reprint with the partial chamfer STILL stringy — in
+two places. (a) The 1 mm flat "seat ring" I'd kept was itself built on chord
+bridges spanning the whole pocket, so the disease survived my first fix;
+(b) the TOP BELT FLANGE is also a ring overhang (1.8 mm cantilevered over
+air + the tooth grooves) — same failure mode, different location, spotted by
+Nishant. Second-iteration fix: bottom transition is now a FULL cone (zero
+flat, zero bridging) with a drop-in printed seat washer restoring the
+bearing's flat face; top flange got a 45° cone underneath. Revised lesson:
+when a failure mode is found once, sweep the WHOLE part for it — I fixed
+one instance and shipped two more.

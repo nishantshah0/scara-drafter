@@ -42,7 +42,10 @@ module gt2_60(h) {
     difference() {
         union() {
             translate([0,0,1.2]) cylinder(d=T60_OD, h=h-2.4);
-            cylinder(d=T60_OD+3.6, h=1.2);                       // flanges
+            cylinder(d=T60_OD+3.6, h=1.2);                       // bottom flange (on the bed)
+            // top flange with 45-degree cone underneath: self-supporting,
+            // no ring overhang (print-failure lesson, debugging log 2026-07-03)
+            translate([0,0,h-3.0]) cylinder(d1=T60_OD, d2=T60_OD+3.6, h=1.8);
             translate([0,0,h-1.2]) cylinder(d=T60_OD+3.6, h=1.2);
         }
         for (i=[0:T60_N-1]) rotate([0,0,i*360/T60_N])
@@ -59,8 +62,10 @@ module hub() {
             translate([0,0,PUL_H]) cylinder(d=36, h=HUB_BOSS_H); // arm boss
         }
         translate([0,0,-1]) cylinder(d=BRG_OD, h=BRG_H+1);       // brg pocket ↓
-        // 45° chamfer above the pocket: printable without support (no ring bridge)
-        translate([0,0,BRG_H-0.01]) cylinder(d1=20, d2=AXLE_D+6, h=(20-(AXLE_D+6))/2);
+        // FULL 45° cone above the pocket — zero flat, zero bridging. The
+        // bearing gets its flat seat from a drop-in printed washer instead
+        // (in spacers.stl). Second iteration of the ring-bridge lesson.
+        translate([0,0,BRG_H-0.01]) cylinder(d1=BRG_OD, d2=AXLE_D+6, h=(BRG_OD-(AXLE_D+6))/2);
         translate([0,0,PUL_H+HUB_BOSS_H-BRG_H]) cylinder(d=BRG_OD, h=BRG_H+1);
         cylinder(d=AXLE_D+6, h=99, center=true);                 // inner clear
         m3_ring();                                               // arm bolts
@@ -161,6 +166,8 @@ module spacers() {
     difference() { cylinder(d=14, h=5);   cylinder(d=8.7, h=99, center=true); }  // bottom spacer (tower/arm1 to lower race — keeps hub off the tower)
     translate([50,0,0])
     difference() { cylinder(d=12, h=6.0); cylinder(d=8.7, h=99, center=true); }  // inner tube (between the two bearing inner races)
+    translate([75,0,0])
+    difference() { cylinder(d=22.0, h=1.2); cylinder(d=15, h=99, center=true); } // seat washer: drops into the lower pocket, gives the bearing a flat face against the cone
 }
 
 // ---- render selector --------------------------------------------------------
