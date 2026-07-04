@@ -58,8 +58,9 @@ module hub() {
             gt2_60(PUL_H);
             translate([0,0,PUL_H]) cylinder(d=36, h=HUB_BOSS_H); // arm boss
         }
-        translate([0,0,-1]) cylinder(d=AXLE_D+11, h=BRG_H+1);    // brg pocket ↓
-        translate([0,0,-1]) cylinder(d=BRG_OD, h=BRG_H+1);
+        translate([0,0,-1]) cylinder(d=BRG_OD, h=BRG_H+1);       // brg pocket ↓
+        // 45° chamfer above the pocket: printable without support (no ring bridge)
+        translate([0,0,BRG_H-0.01]) cylinder(d1=20, d2=AXLE_D+6, h=(20-(AXLE_D+6))/2);
         translate([0,0,PUL_H+HUB_BOSS_H-BRG_H]) cylinder(d=BRG_OD, h=BRG_H+1);
         cylinder(d=AXLE_D+6, h=99, center=true);                 // inner clear
         m3_ring();                                               // arm bolts
