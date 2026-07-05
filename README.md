@@ -60,4 +60,9 @@ War stories: [docs/debugging-log.md](docs/debugging-log.md)
 
 ## Status
 
-Phase 0 — design in progress (July 2026).
+Phase 0 complete (July 2026): CAD done (carriage printed & pen-fit verified),
+firmware written and host-simulated **9/9**, PC software (IK, planner, DXF
+pipeline) written and self-tested **10/10**. Awaiting parts delivery.
+
+Run the tests yourself:
+`python firmware/host_test/run_sim.py` · `python software/selftest.py`
