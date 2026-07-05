@@ -131,8 +131,11 @@ module base() {
             }
         }
         translate([-CD,0,0]) translate([-22,-22,-1]) cube([44,44,13]);  // deck cutout: motor body passes through
-        cylinder(d=AXLE_D, h=99, center=true);                   // shoulder axle
-        translate([0,0,-1]) cylinder(d=HEXAF/cos(30), h=7, $fn=6); // hex pocket ↓
+        // shoulder axle: hex pocket at tower TOP (bolt head recessed, shank up
+        // through the hub stack — an M8x50 reaches; bottom-pocketed it would
+        // need M8x90. Caught in final hand-audit 2026-07-05.)
+        cylinder(d=AXLE_D, h=99, center=true);
+        translate([0,0,TOWER_H-6]) cylinder(d=HEXAF/cos(30), h=7, $fn=6);
         translate([-CD,0,0]) {
             translate([0,0,TOWER_H-8]) cylinder(d=NEMA_BOSS+4, h=10);   // shaft/boss hole
             for (x=[-1,1], y=[-1,1]) translate([x*NEMA_HOLES/2+ -2, y*NEMA_HOLES/2, TOWER_H-8])
