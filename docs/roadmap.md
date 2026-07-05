@@ -33,6 +33,22 @@ arithmetic (design rule: the belt is bought truth, the CAD adapts to it).
 
 ## Phase 1 (Week 1–2) — Electronics bench
 
+**Pre-flight notes (final hand-audit, 2026-07-05):**
+- Motor hookup reality: with drivers seated in the breadboard, the motor's
+  4-pin plug connects via **four short M-M jumpers** from the driver's
+  motor-pin rows — keep them short and direct, never through the long rails
+  (R8 refined).
+- BTT TMC2209 defaults to 1/8 microstepping standalone → **jumper MS1+MS2
+  to 3V3** for 1/16 (or set via UART later). Works either way; 1/16 doubles
+  resolution for free.
+- EN pin is **active-LOW** (low = motors on). Firmware drives it HIGH to
+  kill motion — wired to GP6, handled in firmware.
+- **Not in the cart:** 2× 100 µF (16 V+) electrolytic capacitors for the
+  drivers' 12 V pins — grab from any electronics counter/kit (~$3). Build
+  can start without them (short, direct 12 V leads) but add them before
+  long runs.
+- The Pico W uses a **micro-USB** cable (not USB-C) — check the drawer.
+
 Concepts: how steppers work (magnetic gear-teeth counting — position without
 encoders), microstepping, driver current limiting (the multimeter ritual),
 why 12 V logic needs level-separated wiring.
