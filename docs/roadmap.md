@@ -48,6 +48,14 @@ arithmetic (design rule: the belt is bought truth, the CAD adapts to it).
   can start without them (short, direct 12 V leads) but add them before
   long runs.
 - The Pico W uses a **micro-USB** cable (not USB-C) — check the drawer.
+- **Watch for Pico resets when the servo moves.** VBUS is a raw USB
+  pass-through, not a regulated rail — an MG90S stall spike (several
+  hundred mA) could sag it enough to brown out the Pico mid-job. Pen-lift
+  is light duty so it's likely fine, but if `main.py` reboots (watch for
+  "fw ready" reappearing) exactly when `P 1`/`P 0` fires, that's the cause.
+  Fix: add a 100 µF cap across the servo's power pins (from the capacitor
+  kit), or move servo power off VBUS onto its own small 5V regulator fed
+  from the 12V rail.
 
 Concepts: how steppers work (magnetic gear-teeth counting — position without
 encoders), microstepping, driver current limiting (the multimeter ritual),

@@ -28,8 +28,15 @@ MIN_PERIOD_US = 200   # never step faster than 5 kHz
 SEG_MIN_MS = 8
 
 # --- homing pose ----------------------------------------------------------------
-# Arm parked against the printed stops = these joint angles (radians).
-# Measured/refined at bench; placeholder = both links straight out +X.
+# v1 has NO limit switches and NO StallGuard (that needs UART+DIAG; we only
+# wired STEP/DIR/EN). Homing is 100% MANUAL every power-cycle:
+#   1. By hand, rotate both joints until the arm rests against its printed
+#      alignment stops (the "parked" pose).
+#   2. Send "H" to the firmware -> it zeros its step counters to HOME_ANGLES.
+#   3. Only then run a drawing. If the arm gets bumped or loses steps
+#      mid-session, re-home before trusting positions again.
+# Upgrade path (not built): 2 microswitches on GPIO for auto-homing, or
+# free up 2 more GPIO for UART+DIAG to use StallGuard sensorless homing.
 HOME_ANGLES = (0.0, 0.0)
 
 PORT = "COM3"         # your Pico's port (Device Manager); override with --port
