@@ -17,7 +17,11 @@ ARM_W      = 34;      // arm bar width
 T60_N      = 60;      // printed pulley teeth
 HUB_BOSS_H = 12;      // arm-mounting boss height
 PUL_H      = 8;       // belt section height
-BRG_OD     = 22.3;    // 608 pocket (coupon-tune)
+// 608 pocket, tuned PER SIDE — FDM prints commonly come out tighter near
+// the bed (bottom pocket) than higher up in the same print (top pocket).
+// 2026-07-06 bench test: bottom snug, top wiggled loose -> shaved 0.2mm.
+BRG_OD_BOT = 22.3;    // bottom pocket (near the bed)
+BRG_OD_TOP = 22.1;    // top pocket (near the arm boss) — shrink further if still loose
 BRG_H      = 7.2;
 AXLE_D     = 8.8;     // M8 clearance
 HEXAF     = 13.4;     // M8 bolt-head / nut hex across-flats + tol
@@ -61,12 +65,12 @@ module hub() {
             gt2_60(PUL_H);
             translate([0,0,PUL_H]) cylinder(d=36, h=HUB_BOSS_H); // arm boss
         }
-        translate([0,0,-1]) cylinder(d=BRG_OD, h=BRG_H+1);       // brg pocket ↓
+        translate([0,0,-1]) cylinder(d=BRG_OD_BOT, h=BRG_H+1);   // bottom brg pocket ↓ (printed near the bed — usually the snug one)
         // FULL 45° cone above the pocket — zero flat, zero bridging. The
         // bearing gets its flat seat from a drop-in printed washer instead
         // (in spacers.stl). Second iteration of the ring-bridge lesson.
-        translate([0,0,BRG_H-0.01]) cylinder(d1=BRG_OD, d2=AXLE_D+6, h=(BRG_OD-(AXLE_D+6))/2);
-        translate([0,0,PUL_H+HUB_BOSS_H-BRG_H]) cylinder(d=BRG_OD, h=BRG_H+1);
+        translate([0,0,BRG_H-0.01]) cylinder(d1=BRG_OD_BOT, d2=AXLE_D+6, h=(BRG_OD_BOT-(AXLE_D+6))/2);
+        translate([0,0,PUL_H+HUB_BOSS_H-BRG_H]) cylinder(d=BRG_OD_TOP, h=BRG_H+1);  // top pocket (printed higher up — usually the loose one; tune separately)
         cylinder(d=AXLE_D+6, h=99, center=true);                 // inner clear
         m3_ring();                                               // arm bolts
         for (a=[45:90:360]) rotate([0,0,a]) translate([BC/2,0,PUL_H+1.5])
