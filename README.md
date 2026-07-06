@@ -12,6 +12,13 @@ every structural component printed on a Bambu P1S.
 and motor platform, 60T pulley-hubs, both links, pen carriage. Belt center distance is
 parametric pending measured belts (D9); tolerances pending the bearing coupon.*
 
+![Full workspace sweep, arm2/tower collision check](docs/img/workspace-sweep.gif)
+*Animated sweep across the entire usable A5 sheet (32 poses, real inverse-kinematics
+solutions from [software/ik.py](software/ik.py) — not hand-picked). Verifies arm2 never
+clips the base tower: [clearance_check.py](cad/clearance_check.py) computes the worst
+case numerically (pen at the paper's near edge, arm folded to 156°) at **12 mm of
+clearance**, run it yourself with `python cad/clearance_check.py`.*
+
 ![60T pulley-hub](docs/img/hub-60t.png)
 *The heart of both joints: printed 60T GT2 pulley integrated with the bearing hub —
 one part, printed twice, flipped for the elbow.*

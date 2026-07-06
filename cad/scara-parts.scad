@@ -187,21 +187,31 @@ module belt(cd, z) { color("Firebrick") translate([0,0,z]) difference() {
     hull() { cylinder(d=T60_OD+2, h=5); translate([cd,0,0]) cylinder(d=15, h=5); }
     translate([0,0,-1]) hull() { cylinder(d=T60_OD-2, h=7); translate([cd,0,0]) cylinder(d=11, h=7); } } }
 
+// Joint angles (degrees) for the assembly view. Plain overridable variables
+// (NOT $t) so each animation frame can be rendered as its own process with
+// -D "J1=..." -D "J2=..." -- OpenSCAD 2021.01's --animate loop hits a
+// Windows GL context bug across many frames in one process, and $t itself
+// isn't reliably overridable via -D. Default pose = the tightest verified
+// clearance case (pen at the paper's near edge; arm2 folded closest to the
+// tower; numerically confirmed clear by 12mm, see clearance_check.py).
+J1 = -78;
+J2 = 156;
+
 if (PART=="assembly") {
     color("SteelBlue") base();
     // motor 1: hangs under the base platform, shaft up through the shelf
     translate([-CD,0,TOWER_H-6-42]) nema17_body();
     translate([-CD,0,0]) { color("Silver") cylinder(d=5, h=TOWER_H+16); pulley20(TOWER_H+0.5); }
     rotate([0,0,180]) belt(CD, TOWER_H+1.5);   // shoulder belt: hub -> motor1 at -CD
-    translate([0,0,TOWER_H]) rotate([0,0,-14]) {
+    translate([0,0,TOWER_H]) rotate([0,0,J1]) {
         color("LightSteelBlue") hub();
         color("Silver") translate([0,0,PUL_H+HUB_BOSS_H+2]) cylinder(d=15,h=4,$fn=6);  // nyloc
         color("SteelBlue") translate([0,0,PUL_H+HUB_BOSS_H]) arm1();
         // motor 2: body above arm1, face down, shaft down through the arm
         translate([LINK-CD,0,PUL_H+HUB_BOSS_H+ARM_T]) nema17_body();
         translate([LINK-CD,0,PUL_H+HUB_BOSS_H-14]) { color("Silver") cylinder(d=5,h=26); pulley20(2); }
-        translate([LINK,0,PUL_H+HUB_BOSS_H]) rotate([0,0,52]) {
-            rotate([0,0,180-52]) translate([0,0,-9]) belt(CD, 0);  // elbow belt toward motor2
+        translate([LINK,0,PUL_H+HUB_BOSS_H]) rotate([0,0,J2]) {
+            rotate([0,0,180-J2]) translate([0,0,-9]) belt(CD, 0);  // elbow belt toward motor2
             color("LightSteelBlue") translate([0,0,-PUL_H-HUB_BOSS_H]) rotate([180,0,0]) hub();
             color("SteelBlue") translate([0,0,-PUL_H-HUB_BOSS_H-ARM_T-0.5]) arm2();
             translate([LINK,0,-PUL_H-HUB_BOSS_H-ARM_T-0.5]) {
