@@ -1,4 +1,4 @@
-"""All the numbers that define YOUR machine, in one place.
+"""All the numbers that define the machine, in one place.
 Calibration (Phase 3) edits THIS file, nothing else."""
 import math
 
@@ -39,7 +39,7 @@ SEG_MIN_MS = 8
 # free up 2 more GPIO for UART+DIAG to use StallGuard sensorless homing.
 HOME_ANGLES = (0.0, 0.0)
 
-PORT = "COM3"         # your Pico's port (Device Manager); override with --port
+PORT = "COM3"         # Pico's port (Device Manager); override with --port
 
 
 def sheet_to_world(u, v):

@@ -57,13 +57,13 @@ arithmetic (design rule: the belt is bought truth, the CAD adapts to it).
   kit), or move servo power off VBUS onto its own small 5V regulator fed
   from the 12V rail.
 
-Concepts: how steppers work (magnetic gear-teeth counting — position without
+Need to understand first: how steppers work (magnetic gear-teeth counting — position without
 encoders), microstepping, driver current limiting (the multimeter ritual),
 why 12 V logic needs level-separated wiring.
 
 - [ ] Pico blinks (hello-world ritual)
 - [ ] One stepper spins on the bench (driver current set FIRST — multimeter)
-- [ ] Smooth acceleration ramps (I supply the step-generation core; jerky
+- [ ] Smooth acceleration ramps (step-generation core already written; jerky
       starts = skipped steps = lost position)
 - [ ] Both joints sweep to commanded angles, repeatably
 - [ ] Pen servo lifts/drops on command
@@ -73,8 +73,8 @@ why 12 V logic needs level-separated wiring.
 
 ## Phase 2 (Week 2–3) — Assembly & IK
 
-The whiteboard afternoon: derive two-link inverse kinematics together
-(law of cosines, atan2 — you will OWN this math; it's interview bait).
+The whiteboard afternoon: derive two-link inverse kinematics from scratch
+(law of cosines, atan2 — I want to own this math cold; it's interview bait).
 
 - [ ] Arm assembled: bearings seated, belts tensioned, zero slop by hand
 - [ ] Homing routine (arm finds its zero position)

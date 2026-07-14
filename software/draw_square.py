@@ -24,7 +24,7 @@ if link.dry:
     for c in cmds[:5]:
         print("  ", c)
 else:
-    link.cmd("H")          # you parked the arm at the home stops first!
+    link.cmd("H")          # arm must be parked at the home stops first!
     link.cmd("E 1")
     link.run(cmds, on_progress=lambda i, n: print(f"  {i}/{n}"))
     link.cmd("E 0")

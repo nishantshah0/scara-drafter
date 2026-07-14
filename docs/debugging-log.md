@@ -80,8 +80,8 @@ fail. Chamfer or step them at design time.
 two places. (a) The 1 mm flat "seat ring" I'd kept was itself built on chord
 bridges spanning the whole pocket, so the disease survived my first fix;
 (b) the TOP BELT FLANGE is also a ring overhang (1.8 mm cantilevered over
-air + the tooth grooves) — same failure mode, different location, spotted by
-Nishant. Second-iteration fix: bottom transition is now a FULL cone (zero
+air + the tooth grooves) — same failure mode, different location, only
+spotted on the reprint. Second-iteration fix: bottom transition is now a FULL cone (zero
 flat, zero bridging) with a drop-in printed seat washer restoring the
 bearing's flat face; top flange got a 45° cone underneath. Revised lesson:
 when a failure mode is found once, sweep the WHOLE part for it — I fixed
